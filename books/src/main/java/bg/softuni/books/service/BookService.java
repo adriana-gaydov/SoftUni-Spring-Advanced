@@ -1,5 +1,6 @@
 package bg.softuni.books.service;
 
+import bg.softuni.books.model.binding.BookBindingModel;
 import bg.softuni.books.model.view.BookViewModel;
 
 import java.util.List;
@@ -10,4 +11,6 @@ public interface BookService {
     Optional<BookViewModel> findById(Long bookId);
 
     List<BookViewModel> findAll();
+
+    long saveBook(BookBindingModel newBook);
 }

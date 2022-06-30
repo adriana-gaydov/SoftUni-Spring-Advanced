@@ -1,9 +1,11 @@
 package bg.softuni.books.web;
 
+import bg.softuni.books.model.binding.BookBindingModel;
 import bg.softuni.books.model.view.BookViewModel;
 import bg.softuni.books.service.BookService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 import java.util.Optional;
@@ -48,5 +50,17 @@ public class BookController {
 
         return ResponseEntity
                 .ok(optBook.get());
+    }
+
+    @PostMapping("")
+    public ResponseEntity<BookBindingModel> saveBook(@RequestBody BookBindingModel newBook,
+                                                     UriComponentsBuilder uriComponentsBuilder) {
+
+        long id = this.bookService.saveBook(newBook);
+
+        return ResponseEntity
+                .created(uriComponentsBuilder.path("/api/books/{id}")
+                        .build(id))
+                .build();
     }
 }
